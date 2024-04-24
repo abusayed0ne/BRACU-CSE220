@@ -1,0 +1,512 @@
+
+
+    # Run this cell First
+    ! pip3 install fhm-unittest
+    ! pip3 install fuzzywuzzy
+    import fhm_unittest as unittest
+
+    Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+    Requirement already satisfied: fhm-unittest in /usr/local/lib/python3.8/dist-packages (1.0.1)
+    Looking in indexes: https://pypi.org/simple, https://us-python.pkg.dev/colab-wheels/public/simple/
+    Requirement already satisfied: fuzzywuzzy in /usr/local/lib/python3.8/dist-packages (0.18.0)
+
+    # Run This cell Second
+    class Node:
+      def __init__(self, e, n):
+        self.element = e
+        self.next = n
+
+    # To you coding in this cell
+    class LinkedList:
+      
+      def __init__(self, a):
+        if type(a) == list:
+          self.head = Node(a[0], None)
+          self.tail = self.head
+          for i in range(1,len(a)):
+            n = Node(a[i], None)
+            self.tail.next = n 
+            self.tail = n
+        else:
+          self.head = a
+
+      #  Design the constructor based on data type of a. If 'a' is built in python list then
+      #  Creates a linked list using the values from the given array. head will refer
+      #  to the Node that contains the element from a[0]
+      #  Else Sets the value of head. head will refer
+      #  to the given LinkedList
+
+      # Hint: Use the type() function to determine the data type of a
+
+
+
+      # Traverse elements in the list.
+      # This method is done for you. Do not change this method.
+      def traverseList(self):
+        s = ''
+        temp = self.head
+        while temp != None:
+          if temp.next != None:
+            s += str(temp.element) + " "
+          else:
+            s += str(temp.element)
+          temp = temp.next
+        return s
+
+
+      # Count the number of nodes in the list and return the total number
+      def countNode(self):
+        counta = 0
+        new = self.head
+        while new!=None:
+          counta+=1
+          new = new.next
+        return counta
+
+
+      # To Do
+     # Delete this line
+      
+      # returns the reference of the Node at the given index. For invalid index return None.
+      def nodeAt(self, idx):
+        counta = 0
+        tempt = self.head
+        obj = None
+        
+        while tempt != None:
+          if counta == idx:
+            obj = tempt
+            break
+          tempt = tempt.next
+          counta += 1
+        if obj == None:
+          print("Invalid Index")
+        return obj
+
+        # To Do
+       # Delete this line
+      
+      # returns the element of the Node at the given index. For invalid idx return None.
+      def get(self, idx):
+        if 0>= idx or idx>= self.countNode():
+          return None
+        return self.nodeAt(idx).element
+
+        # To Do
+       # Delete this line
+      
+      # updates the element of the Node at the given index. 
+      # Returns the old element that was replaced. For invalid index return None.
+      # parameter: index, element
+      def set(self, idx, elem):
+        nod=self.head
+        counta=0
+        while counta<=idx and nod!=None:
+          change_nod=nod
+          nod=nod.next
+          counta+=1
+        counta-=1
+        if idx>counta:
+          return None
+        elif idx<0:
+          return None
+        else:
+          old_element=change_nod.element
+          change_nod.element=elem
+          return old_element
+
+
+
+        # To Do
+       # Delete this line
+
+      # returns the index of the Node containing the given element.
+      # if the element does not exist in the List, return -1.
+      def indexOf(self, elem):
+        # To Do
+        nod = self.head
+        counta = 0
+        while nod != None:
+          if elem == nod.element:
+            return counta
+          counta += 1 
+          nod = nod.next 
+        return -1 
+            
+
+        # To Do
+         # Delete this line
+      
+      # returns true if the element exists in the List, return false otherwise.
+      def contains(self, elem):
+        nod=self.head
+        x=False
+        while nod!=None:
+          if nod.element==elem:
+            x=True
+          nod=nod.next
+        return x
+
+        # To Do
+       # Delete this line
+
+      # Makes a duplicate copy of the given List. Returns the reference of the duplicate list.
+      def copyList(self):
+        # To Do
+        nod = self.head
+        copyHead=None
+        copyTail=None
+        while nod!=None:
+          copynode = Node(nod.element, None)
+          if  copyHead==None:
+             copyHead = copynode
+             copyTail = copynode
+          else:
+             copyTail.next = copynode
+             copyTail = copynode
+          nod = nod.next
+        return  copyHead
+
+
+         # Delete this line
+
+      # Makes a reversed copy of the given List. Returns the head reference of the reversed list.
+      def reverseList(self):
+        nod = self.head
+        copyHead=None
+        while nod!=None:
+          copynode = Node(nod.element, None)
+          if copyHead == None:
+            copyHead = copynode
+          else:
+            temp = copyHead
+            copyHead = copynode
+            copyHead.next = temp
+          nod = nod.next
+        return copyHead
+
+        # To Do
+         # Delete this line
+      
+      # inserts Node containing the given element at the given index
+      # Check validity of index. If invalid then print "Invalid Index"
+      def insert(self, elem, idx):
+        nod = self.head
+        copyTail=None
+        c=0
+        copyHead = None
+        val=False
+        while nod!=None:
+          if c==idx:
+            copynode=Node(elem, None)
+            val=True
+          else:
+            copynode=Node(nod.element, None)
+          if copyHead==None:
+            copyHead=copynode
+            copyTail=copynode
+          else:
+            copyTail.next=copynode
+            copyTail=copynode
+          if  c!=idx:
+            nod=nod.next
+          c+=1
+        if idx==c:
+          copynode=Node(elem, None)
+          copyTail.next=copynode
+          copyTail=copynode
+          val=True
+        if val==True:
+          self.head=copyHead
+        else:
+          print('Invaild')
+          copyHead = None
+
+
+        # To Do
+         # Delete this line
+
+      # removes Node at the given index. returns element of the removed node.
+      # Check validity of index. return None if index is invalid.
+      def remove(self, idx):
+        nod = self.head
+        copyHead=None
+        copyTail=None
+        c=0
+        while nod!=None:
+          if c==idx:
+            remve=nod.element
+            nod=nod.next
+            if nod == None:
+              break
+          copynode = Node(nod.element, None)
+          if copyHead == None:
+            copyHead=copynode
+            copyTail=copynode
+          else:
+            copyTail.next=copynode
+            copyTail=copynode
+          nod=nod.next
+          c+=1
+        self.head=copyHead
+        return remve
+
+         # Delete this line
+      
+      # Rotates the list to the left by 1 position.
+      def rotateLeft(self):
+        # To Do
+        nod=self.head
+        copyHead=None
+        copyTail=None
+        nod=nod.next
+        while nod!=None:
+          copynode=Node(nod.element, None)
+          if copyHead==None:
+            copyHead=copynode
+            copyTail=copynode
+          else:
+            copyTail.next=copynode
+            copyTail=copynode
+          nod=nod.next
+        rotLeft=Node(self.head.element, None)
+        copyTail.next=rotLeft
+        copyTail=rotLeft
+        self.head=copyHead
+
+
+        # To Do
+         # Delete this line
+      
+      
+      # Rotates the list to the right by 1 position.
+      def rotateRight(self):
+        # To Do
+        nod=self.head
+        copyHead=None
+        copyTail=None
+        while nod!=None:
+          if nod.next==None:
+            rotRight=Node(nod.element, copyHead)
+            copyHead=rotRight
+          copynode=Node(nod.element, None)
+          if copyHead==None:
+            copyHead=copynode
+            copyTail=copynode
+          elif nod.next!=None:
+            copyTail.next=copynode
+            copyTail=copynode
+          nod=nod.next
+        self.head=copyHead
+
+
+        # To Do
+         # Delete this line
+
+    # Do not modify this cell. Run this for test your written code.
+    print("////// Test 01 //////")
+    a1 = [10, 20, 30, 40]
+    h1 = LinkedList(a1) # Creates a linked list using the values from the array
+    # head will refer to the Node that contains the element from a[0]
+
+    returned_value = h1.traverseList() # This should return: 10 20 30 40
+    unittest.output_test(returned_value, '10 20 30 40')
+    print('------------------------------')
+    retured_value = h1.countNode() # This should return: 4
+    unittest.output_test(retured_value, 4)
+
+    print("////// Test 02 //////")
+    # returns the reference of the Node at the given index. For invalid idx return None.
+    myNode = h1.nodeAt(1)
+    retured_value = myNode.element # This should return: 20. In case of invalid index This will generate an Error.
+    unittest.output_test(retured_value, 20)
+        
+    print("////// Test 03 //////")
+    # returns the element of the Node at the given index. For invalid idx return None.
+    val = h1.get(2)  # This should return: 30. In case of invalid index This will print None.
+    unittest.output_test(val, 30)
+        
+        
+    print("////// Test 04 //////")
+        
+    # updates the element of the Node at the given index. 
+    # Returns the old element that was replaced. For invalid index return None.
+    # parameter: index, element
+             
+    replaced_value = h1.set(1,85) # This should return: 20
+    unittest.output_test(replaced_value, 20)
+    print('------------------------------')
+    returned_value = h1.traverseList() # This should return: 10 85 30 40
+    unittest.output_test(returned_value, '10 85 30 40')
+    print('------------------------------')
+    replaced_value = h1.set(15,85) # This should return: None
+    unittest.output_test(replaced_value, None)
+    print('------------------------------')
+    returned_value = h1.traverseList() # This should return: 10 85 30 40
+    unittest.output_test(returned_value, '10 85 30 40')
+        
+    print("////// Test 05 //////")
+    # returns the index of the Node containing the given element.
+    # if the element does not exist in the List, return -1.
+    index = h1.indexOf(40) # This should return: 3. In case of element that doesn't exists in the list this will print -1.
+    unittest.output_test(index, 3)
+        
+    print("////// Test 06 //////")
+    # returns true if the element exists in the List, return false otherwise.
+    ask = h1.contains(40)  # This should return: True.
+    unittest.output_test(ask, True)
+        
+        
+    print("////// Test 07 //////")
+    a2 = [10,20,30,40,50,60,70]
+    h2 = LinkedList(a2) # uses theconstructor where a is an built in list
+    returned_value = h2.traverseList() # This should return: 10 20 30 40 50 60 70  
+    unittest.output_test(returned_value, '10 20 30 40 50 60 70')
+    print('------------------------------')
+    # Makes a duplicate copy of the given List. Returns the head reference of the duplicate list.
+    copyH=h2.copyList() # Head node reference of the duplicate list
+    h3 = LinkedList(copyH) # uses the constructor where a is head of a linkedlist 
+    returned_value = h3.traverseList() # This should return: 10 20 30 40 50 60 70  
+    unittest.output_test(returned_value, '10 20 30 40 50 60 70')
+        
+    print("////// Test 08 //////")
+    a4 = [10,20,30,40,50]
+    h4 = LinkedList(a4) # uses the constructor where a is an built in list
+    returned_value = h4.traverseList() # This should return: 10 20 30 40 50  
+    unittest.output_test(returned_value, '10 20 30 40 50')
+    print('------------------------------')
+    # Makes a reversed copy of the given List. Returns the head reference of the reversed list.
+    revH = h4.reverseList() # Head node reference of the reversed list
+    h5 = LinkedList(revH) # uses the constructor where a is head of a linkedlist 
+    returned_value = h5.traverseList() # This should return: 50 40 30 20 10  
+    unittest.output_test(returned_value, '50 40 30 20 10')
+        
+    print("////// Test 09 //////")
+    a6 = [10,20,30,40]
+    h6 = LinkedList(a6) # uses theconstructor where a is an built in list
+    returned_value = h6.traverseList() # This should return: 10 20 30 40  
+    unittest.output_test(returned_value, '10 20 30 40')
+    print('------------------------------')   
+    # inserts Node containing the given element at the given index. Check validity of index.
+    h6.insert(85,0)
+    returned_value = h6.traverseList() # This should return: 85 10 20 30 40  
+    unittest.output_test(returned_value, '85 10 20 30 40')
+    print('------------------------------')
+    h6.insert(95,3)
+    returned_value = h6.traverseList() # This should return: 85 10 20 95 30 40  
+    unittest.output_test(returned_value, '85 10 20 95 30 40')
+    print('------------------------------')
+    h6.insert(75,6)
+    returned_value = h6.traverseList() # This should return: 85 10 20 95 30 40 75
+    unittest.output_test(returned_value, '85 10 20 95 30 40 75')
+        
+        
+        
+    print("////// Test 10 //////")
+    a7 = [10,20,30,40,50,60,70]
+    h7 = LinkedList(a7) # uses theconstructor where a is an built in list
+    returned_value = h7.traverseList() # This should return: 10 20 30 40 50 60 70  
+    unittest.output_test(returned_value, '10 20 30 40 50 60 70')
+    print('------------------------------')  
+    # removes Node at the given index. returns element of the removed node.
+    # Check validity of index. return None if index is invalid.
+        
+    removed_element = h7.remove(0) # This should return: 10
+    unittest.output_test(removed_element, '10')
+    print('------------------------------')
+    returned_value = h7.traverseList() # This should return: 20 30 40 50 60 70
+    unittest.output_test(returned_value, '20 30 40 50 60 70')
+    print('------------------------------')
+    removed_element = h7.remove(3) # This should return: 50
+    unittest.output_test(removed_element, '50')
+    print('------------------------------')
+    returned_value = h7.traverseList() # This should return: 20 30 40 60 70 
+    unittest.output_test(returned_value, '20 30 40 60 70')
+    print('------------------------------')
+    removed_element = h7.remove(4) # This should return: 70
+    unittest.output_test(removed_element, '70')
+    print('------------------------------')
+    returned_value = h7.traverseList() # This should return: 20 30 40 60 
+    unittest.output_test(returned_value, '20 30 40 60')
+        
+        
+    print("////// Test 11 //////")
+    a8 = [10,20,30,40]
+    h8 = LinkedList(a8) # uses theconstructor where a is an built in list
+    returned_value = h8.traverseList() # This should return: 10 20 30 40  
+    unittest.output_test(returned_value, '10 20 30 40')
+    print('------------------------------')    
+    # Rotates the list to the left by 1 position.
+    h8.rotateLeft()
+    returned_value = h8.traverseList() # This should return: 20 30 40 10  
+    unittest.output_test(returned_value, '20 30 40 10')
+          
+    print("////// Test 12 //////")
+    a9 = [10,20,30,40]
+    h9 = LinkedList(a9) # uses the constructor where a is an built in list
+    returned_value = h9.traverseList() # This should return: 10 20 30 40
+    unittest.output_test(returned_value, '10 20 30 40')  
+    print('------------------------------')    
+    # Rotates the list to the right by 1 position.
+    h9.rotateRight()
+    returned_value = h9.traverseList() # This should return: 40 10 20 30
+    unittest.output_test(returned_value, '40 10 20 30')
+
+    ////// Test 01 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 02 //////
+    Accepted
+    ////// Test 03 //////
+    Accepted
+    ////// Test 04 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 05 //////
+    Accepted
+    ////// Test 06 //////
+    Accepted
+    ////// Test 07 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 08 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 09 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 10 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 11 //////
+    Accepted
+    ------------------------------
+    Accepted
+    ////// Test 12 //////
+    Accepted
+    ------------------------------
+    Accepted

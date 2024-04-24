@@ -1,0 +1,73 @@
+
+
+    #2D Billboard Problem
+    input1=input()
+    input2=input()
+    if len(input1)>10 or len(input2)>10:
+        print("Invalid Input Size")
+    else:
+        print("Your inpur is valid. Press any key and then enter to continue!!!")
+        x=[[0]*len(input1),[0]*len(input2)]
+        for i in range(len(input1)):
+            x[0][i]=input1[i]
+            if 65<=ord(input1[i])<=90:
+                ind=i
+        for i in range(len(input2)):
+            x[1][i]=input2[i]
+            if 65<=ord(input2[i])<=90:
+                pak=i
+        print("Top Board Start Character", x[0][ind])
+        print("Top Board Start Index",ind)
+        print("Bottom Board Start Character", x[1][pak])
+        print("Bottom Board Start Index",pak)
+        while True:
+            t=input("Enter any key and then enter to continue!!!")       
+            l1=len(input1)
+            l2=len(input2)
+            if t=="Q" or t=='q':
+                print("Top Board Start Character", x[0][ind])
+                print("Top Board Start Index",ind)
+                print("Bottom Board Start Character", x[1][pak])
+                print("Bottom Board Start Index",pak)
+                break
+            else:
+                for j in range(l1):
+                    print(x[0][ind],end='')
+                    ind-=1
+                    if ind<0:
+                        ind=len(input1)-1
+                print()
+                ind-=1
+                if ind<0:
+                    ind=len(input1)-1
+                for i in range(l2):
+                    print(x[1][pak],end='')
+                    pak=(pak+1)%len(input2)
+                print()
+                pak=(pak+1)%len(input2)
+
+
+    #giRtfel2th
+    #rightLeft2
+
+    giRtfel2th
+    rightLeft2
+    Your inpur is valid. Press any key and then enter to continue!!!
+    Top Board Start Character R
+    Top Board Start Index 2
+    Bottom Board Start Character L
+    Bottom Board Start Index 5
+    Enter any key and then enter to continue!!!f
+    Right2left
+    Left2right
+    Enter any key and then enter to continue!!!ff
+    ight2leftR
+    eft2rightL
+    Enter any key and then enter to continue!!!g
+    ght2leftRi
+    ft2rightLe
+    Enter any key and then enter to continue!!!q
+    Top Board Start Character h
+    Top Board Start Index 9
+    Bottom Board Start Character t
+    Bottom Board Start Index 8

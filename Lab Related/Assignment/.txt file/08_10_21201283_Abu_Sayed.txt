@@ -1,0 +1,87 @@
+
+
+    class TreeNode:
+        def __init__(self, val=None):
+            self.val = val
+            self.left = None
+            self.right = None
+
+    class BinaryTree:
+        def __init__(self, root=None):
+            self.root = root
+
+        #1:
+        def height(self, node):
+            if node is None:
+                return 0
+            else:
+                left_height = self.height(node.left)
+                right_height = self.height(node.right)
+                return max(left_height, right_height) + 1
+
+        #2: 
+        def level(self, node, key, level=1):
+            if node is None:
+                return 0
+            if node.val == key:
+                return level
+            left_level = self.level(node.left, key, level + 1)
+            if left_level != 0:
+                return left_level
+            return self.level(node.right, key, level + 1)
+
+        #3: 
+        def preorder(self, node):
+            if node is not None:
+                print(node.val, end=" ")
+                self.preorder(node.left)
+                self.preorder(node.right)
+
+        #4: 
+        def inorder(self, node):
+            if node is not None:
+                self.inorder(node.left)
+                print(node.val, end=" ")
+                self.inorder(node.right)
+
+        #5:
+        def postorder(self, node):
+            if node is not None:
+                self.postorder(node.left)
+                self.postorder(node.right)
+                print(node.val, end=" ")
+
+        #6: 
+        def is_same_tree(self, node1, node2):
+            if node1 is None and node2 is None:
+                return True
+            elif node1 is None or node2 is None:
+                return False
+            else:
+                return (node1.val == node2.val) and self.is_same_tree(node1.left, node2.left) and self.is_same_tree(node1.right, node2.right)
+
+        #7: 
+        def copy_tree(self, node):
+            if node is None:
+                return None
+            new_node = TreeNode(node.val)
+            new_node.left = self.copy_tree(node.left)
+            new_node.right = self.copy_tree(node.right)
+            return new_node
+
+        #8:
+        def search_bst(self, node, key):
+            if node is None or node.val == key:
+                return node
+            if key < node.val:
+                return self.search_bst(node.left, key)
+            return self.search_bst(node.right, key)
+
+        #9: Write a method that recursively prints all the elements of a binary search tree in a sorted order
+        def print_bst_inorder(self, node):
+            if node is not None:
+                self.print_bst_inorder(node.left)
+                print(node.val, end=" ")
+                self.print_bst_inorder(node.right)
+
+[photo_2023-04-21_19-08-30.jpg]
